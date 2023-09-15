@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.exceptions import APIException
+
 from .serializers import UserSerializer
+from .models import User
 
 class RegisterAPIView(APIView):
     def post(self, request):
@@ -10,3 +13,16 @@ class RegisterAPIView(APIView):
         serializer.save()
         return Response(serializer.data)
 
+class LoginAPIView(APIView):
+    def post(self, request):
+        user = User.objects.filter(email = request.data['email']).first()
+
+        if not user:
+            raise APIException('Invalid Credentials')
+        
+        if not user.check_password(request.data['password']):
+            raise APIException('Invalid Credentials')
+        
+        serializer = UserSerializer(user)
+
+        return Response(serializer.data)
