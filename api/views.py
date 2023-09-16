@@ -1,12 +1,15 @@
 from django.shortcuts import render
+from rest_framework import status  
 from rest_framework.views import APIView
+from django.http import HttpResponseRedirect
 from rest_framework.response import Response
 from rest_framework.exceptions import APIException, AuthenticationFailed
 from rest_framework.authentication import get_authorization_header
 
+
 from .authentication import create_access_token, create_refresh_token, decode_access_token, decode_refresh_token
-from .serializers import UserSerializer
-from .models import User
+from .serializers import UserSerializer, ToDoSerializer
+from .models import User, ToDo
 
 class RegisterAPIView(APIView):
     def post(self, request):
