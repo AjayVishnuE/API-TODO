@@ -16,3 +16,9 @@ class UserSerializer(ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+    
+
+class ToDoSerializer(ModelSerializer):
+    class Meta:
+        model = ToDo
+        fields = ('id', 'Title', 'Description', 'Date', 'Completed')

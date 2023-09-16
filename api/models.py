@@ -12,3 +12,12 @@ class User(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
+
+class ToDo(models.Model):
+    Title = models.CharField(max_length=100, blank=False)
+    Description = models.CharField(max_length=100, blank=True)
+    Date = models.DateField(blank=False)
+    Completed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.Title

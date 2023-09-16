@@ -10,7 +10,7 @@ def create_access_token(id):
 
 def decode_access_token(token):
     try:
-        payload = jwt.decode(token, 'access_secret', algorithm = 'HS256')
+        payload = jwt.decode(token, 'access_secret', algorithms = 'HS256')
 
         return payload['user_id']
     except:
@@ -25,7 +25,7 @@ def create_refresh_token(id):
 
 def decode_refresh_token(token):
     try:
-        payload = jwt.decode(token, 'refresh_secret', algorithm = 'HS256')
+        payload = jwt.decode(token, 'refresh_secret', algorithms = 'HS256')
 
         return payload['user_id']
     except:

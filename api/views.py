@@ -63,8 +63,53 @@ class RefreshAPIView(APIView):
 class LogoutAPIView(APIView):
     def post(self, _):
         response = Response()
-        response.delete.cookie(key = "refreshToken")
+        response.delete_cookie(key = "refreshToken")
         response.data = {
             'message': "SUCCESS"
         }
         return response
+    
+class ToDoAPIView(APIView):
+
+    def get(self, request, pk=None, format =None):
+        try:
+            if pk:
+                Todo_obj = ToDo.objects.get(pk = pk)
+                serializer = ToDoSerializer(Todo_obj)
+        except Exception as e:
+            return HttpResponseRedirect("/")
+        else:
+            items = ToDo.objects.all()
+            serializer = ToDoSerializer(items, many = True)
+        return Response(serializer.data)
+    
+    #create
+    def post(self, request, format=None):
+        data = request.data
+        serializer = ToDoSerializer(data = data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status = status.HTTP_201_CREATED)
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
+    #update
+    def put(self, request, pk, format=None):
+        Todo_obj = ToDo.objects.get(pk = pk)
+        serializer = ToDoSerializer(data = request.data, instance = Todo_obj)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"Message" : "Data Updated Successfully"})
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+        
+    #partial update
+    def patch(self, request, pk, format=None):
+        Todo_obj = ToDo.objects.get(pk = pk)
+        serializer = ToDoSerializer(data = request.data, instance = Todo_obj, partial =True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"Message" : "Data Updated Successfully"})
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, pk, format=True):
+        ToDo.objects.get(pk=pk).delete()
+        return Response({"Message" : "Data Deleted Successfully"})
