@@ -60,7 +60,7 @@ class RefreshAPIView(APIView):
             'token' : access_token
         })
     
-class LogputAPIView(APIView):
+class LogoutAPIView(APIView):
     def post(self, _):
         response = Response()
         response.delete.cookie(key = "refreshToken")
