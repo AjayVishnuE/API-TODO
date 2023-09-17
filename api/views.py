@@ -3,6 +3,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from django.http import HttpResponseRedirect
 from rest_framework.response import Response
+# from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework.authentication import get_authorization_header
 from rest_framework.exceptions import APIException, AuthenticationFailed
 
@@ -75,7 +76,7 @@ class LogoutAPIView(APIView):
         }
         return response
     
-    
+
 class ToDoAPIView(APIView):
 
     def get(self, request, pk=None, format =None):
@@ -118,5 +119,5 @@ class ToDoAPIView(APIView):
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
     
     def delete(self, request, pk, format=True):
-        ToDo.objects.get(pk=pk).delete()
+        ToDo.objects.get(pk=pk).delete(pk)
         return Response({"Message" : "Data Deleted Successfully"})

@@ -14,6 +14,7 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
 
 class ToDo(models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE, null = True, blank=True)
     Title = models.CharField(max_length=100, blank=False)
     Description = models.CharField(max_length=100, blank=True)
     Date = models.DateField(blank=False)
