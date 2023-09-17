@@ -10,5 +10,4 @@ urlpatterns = [
     path('logout/', LogoutAPIView.as_view()),
     path('todo/', ToDoAPIView.as_view()),
 
-
 ]

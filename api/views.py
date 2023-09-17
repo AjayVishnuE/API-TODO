@@ -1,11 +1,10 @@
-from django.shortcuts import render
 from rest_framework import status  
+from django.shortcuts import render
 from rest_framework.views import APIView
 from django.http import HttpResponseRedirect
 from rest_framework.response import Response
-from rest_framework.exceptions import APIException, AuthenticationFailed
 from rest_framework.authentication import get_authorization_header
-
+from rest_framework.exceptions import APIException, AuthenticationFailed
 
 from .authentication import create_access_token, create_refresh_token, decode_access_token, decode_refresh_token
 from .serializers import UserSerializer, ToDoSerializer
@@ -17,6 +16,7 @@ class RegisterAPIView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
+
 
 class LoginAPIView(APIView):
     def post(self, request):
@@ -40,6 +40,7 @@ class LoginAPIView(APIView):
 
         return response
     
+
 class UserAPIView(APIView):
     def get(self, request):
         auth = get_authorization_header(request).split()
@@ -54,6 +55,7 @@ class UserAPIView(APIView):
         
         raise AuthenticationFailed('Unauthenticated')
     
+
 class RefreshAPIView(APIView):
     def post(self, request):
         refresh_token = request.COOKIES.get('refreshToken')
@@ -63,6 +65,7 @@ class RefreshAPIView(APIView):
             'token' : access_token
         })
     
+
 class LogoutAPIView(APIView):
     def post(self, _):
         response = Response()
@@ -71,6 +74,7 @@ class LogoutAPIView(APIView):
             'message': "SUCCESS"
         }
         return response
+    
     
 class ToDoAPIView(APIView):
 
