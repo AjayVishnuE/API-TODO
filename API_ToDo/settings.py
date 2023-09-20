@@ -78,6 +78,7 @@ WSGI_APPLICATION = 'API_ToDo.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+DATABASE_URL = config("DATABASE_URL")
 
 DATABASES = {
     'default': {
