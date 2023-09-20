@@ -22,10 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
-
+SECRET_KEY = 'django-insecure-^ufz-b=##n494v%rr8#d8^=y!kbt6t+nk8$3l6wd#u((-w35sq'
+    
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default = False, cast = bool)
+DEBUG = config('DEBUG', cast = bool)
 
 ALLOWED_HOSTS = ['https://todoappapi.up.railway.app', 'todoappapi.up.railway.app', '127.0.0.1']
 
