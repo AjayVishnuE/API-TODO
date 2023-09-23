@@ -14,3 +14,5 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'API_ToDo.settings')
 
 application = get_wsgi_application()
+
+app = application              #for hosting in vercel
